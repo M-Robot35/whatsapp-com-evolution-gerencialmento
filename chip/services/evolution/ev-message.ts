@@ -38,9 +38,9 @@ export default class EvMessage {
         const body = {
             number: data.number,
             text: data.message,
-            delay: 1200
+            delay: 3000
         }
-        console.log('body --  ', body)
+
         if(options?.delay){
             body.delay= options.delay
         }

@@ -289,8 +289,10 @@ export default function TableGroup({apikeyy, instanceNamee, grupos }:{apikeyy:st
                                                         {grupo.pictureUrl? <AvatarImageUser urlImage={grupo.pictureUrl}/>: <p className="text-nowrap">Sem Imagem</p>}
                                                     </td>                                               
                                                     
-                                                    <td className="">
-                                                        {grupo.size}
+                                                    <td className="h-auto">
+                                                        <div className="flex justify-center items-center w-full h-full">
+                                                            {grupo.size}
+                                                        </div>
                                                     </td>
                                                 
                                                 <td className=" ">
@@ -428,6 +430,6 @@ const optionsFilter= [
 const headers= [
     'name',
     'imagem',
-    'contatos',
+    'participantes',
     'action'
 ]
