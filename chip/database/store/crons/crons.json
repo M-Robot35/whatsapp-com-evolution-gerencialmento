@@ -1,0 +1,13 @@
+{
+  "user1234": {
+    "meuJob": {
+      "expression": "*/1 * * * * *",
+      "fn": "function minhaTarefa(param1, param2) {\n        _app_actions_cron_action__WEBPACK_IMPORTED_MODULE_3__.cronActions.sendMessageText('58072808-78EC-4FA7-810B-FFC0D8F3E31C', 'maxima', '5531985019300', 'teste');\n        console.log(`Executando com argumentos: ${param1}, ${param2}`);\n    }",
+      "args": [
+        "Oi",
+        42
+      ],
+      "status": "inativo"
+    }
+  }
+}

@@ -1,0 +1,72 @@
+version: '3.9'
+services:
+  evolution-api:
+    container_name: evolution_api
+    image: atendai/evolution-api:v2.1.1
+    restart: always
+    environment:
+      - SERVER_URL=http://localhost:8080
+      - DEL_INSTANCE=false
+      - AUTHENTICATION_API_KEY=minhasenhasecreta
+      - CONFIG_SESSION_PHONE_NAME=click_digital
+      
+      - DATABASE_CONNECTION_URI=postgresql://postgres:parangarito12@db:5432/evolution
+      - DATABASE_ENABLED=false
+      - DATABASE_PROVIDER=postgresql
+      - DATABASE_SAVE_DATA_INSTANCE=true
+      - DATABASE_SAVE_DATA_NEW_MESSAGE=true
+      - DATABASE_SAVE_MESSAGE_UPDATE=true
+      - DATABASE_SAVE_DATA_CONTACTS=true
+      - DATABASE_SAVE_DATA_CHATS=true
+      - DATABASE_SAVE_DATA_LABELS=true
+      - DATABASE_SAVE_DATA_HISTORIC=true
+      - DATABASE_CONNECTION_CLIENT_NAME=evolution-api
+      
+      - WEBSOCKET_ENABLED=true
+      - WEBHOOK_GLOBAL_ENABLED=true
+      - WEBSOCKET_GLOBAL_EVENTS=false
+
+      - CACHE_REDIS_ENABLED=true
+      - CACHE_REDIS_URI=redis://evo_redis:6379/1
+      - CACHE_REDIS_PREFIX_KEY=evolution-api
+      - CACHE_REDIS_SAVE_INSTANCES=false
+
+    ports:
+      - "8080:8080"   
+    volumes:
+      - evolution_instances:/evolution/instances
+
+  db:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: parangarito12
+      POSTGRES_DB: evolution
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+ 
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - "8082:8080"
+    #networks:
+    #  - closefriends
+    depends_on:
+      - db
+
+  evo_redis:
+    image: redis:latest    
+    container_name: redis
+    volumes:
+      - ./evolution_redis:/data
+    ports:
+      - 6379:6379
+
+      
+volumes:
+  evolution_instances:
+  pgdata:
+  evolution_redis:
